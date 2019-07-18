@@ -1,9 +1,9 @@
 <html lang="en">
 
 <head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <meta charset="utf-8">
-  <title> Scatterplot </title>
-  <h1> Scatterplot using external data </h1>
+  <title> DVE assesment </title>
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <script src="main.js" defer></script>
   <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -12,30 +12,45 @@
 </head>
 
 <body>
-  <div class="control-group">
-    <button onclick="select('medicaid_county_population')">
-      medicaid_county_population
-    </button>
-    <button onclick="select('ny_agi_of_all_returns_in_thousands')">
-      ny_agi_of_all_returns_in_thousands
-    </button>
-    <button onclick="select('deductions_of_all_returns_in_thousands')">
-      deductions_of_all_returns_in_thousands
-    </button>
-  </div>
-  <div class="control-group">
-    <button onclick="selectYear('2011')"> 2011 </button>
-    <button onclick="selectYear('2012')"> 2012 </button>
-    <button onclick="selectYear('2013')"> 2013 </button>
-    <button onclick="selectYear('2014')"> 2014 </button>
-  </div>
-  </form>
-  <div id="tooltip" class="hidden">
+  <div class="container">
+    <br>
+    <h1> Analysis between Medicaid Potentially Preventable <br>Emergency Visit (PPV) Rates and Income at New York. </h1>
+    <div class="control-group">
+      <button onclick="select('medicaid_county_population')" class="btn btn-outline-primary">
+        medicaid_county_population
+      </button>
+      <button onclick="select('ny_agi_of_all_returns_in_thousands')" class="btn btn-outline-primary">
+        ny_agi_of_all_returns_in_thousands
+      </button>
+      <button onclick="select('deductions_of_all_returns_in_thousands')" class="btn btn-outline-primary">
+        deductions_of_all_returns_in_thousands
+      </button>
+    </div>
+    <br>
+    <div class="control-group">
+      <button onclick="selectYear('2011')" class="btn btn-outline-info"> 2011 </button>
+      <button onclick="selectYear('2012')" class="btn btn-outline-info"> 2012 </button>
+      <button onclick="selectYear('2013')" class="btn btn-outline-info"> 2013 </button>
+      <button onclick="selectYear('2014')" class="btn btn-outline-info"> 2014 </button>
+    </div>
+    <br>
+    </form>
+    <div id="tooltip" class="hidden text-secondary">
+      <p><span id="info"> .</span></p>
+    </div>
+    <svg></svg>
+    <div class="text-muted">
+      <p class=""> (Hover on the circle for more information.)</p>
+      <p class=""> (The color indicates the population. Brown: higher, Purple: lower.)</p>
+    </div>
+    <ul class="text-black-50">Data source:
+      <li><a class="text-black-50" href="https://health.data.ny.gov/Health/Medicaid-Potentially-Preventable-Emergency-Visit-P/cr7a-34ka">Medicaid Potentially Preventable Emergency Visit (PPV) Rates by Patient County</a></li>
+      <li><a class="text-black-50" href="https://data.ny.gov/Government-Finance/Income-Tax-Components-of-Full-Year-Residents-by-Si/5kgr-h5g5">Income Tax Components of Full-Year Residents by Size of Income and County</a></li>
+    </ul>
 
-    <p><span id="info"> .</span></p>
-    <p>(hoover on the circle for more information.)</p>
+
+    </p>
   </div>
-  <svg></svg>
 </body>
 
 </html>
