@@ -3,8 +3,8 @@ d3.csv("coffee.csv")
     console.log(data);
 
     //Width and height
-    var w = 500;
-    var h = 500;
+    var w = 450;
+    var h = 450;
 
     //Create SVG element
     var svg = d3.select("body").select("#main")
