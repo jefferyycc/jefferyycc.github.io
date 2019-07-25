@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <style>
+    body { margin:0;position:fixed;top:0;right:0;bottom:0;left:0; }
+  </style>
+</head>
+
+
+
+<body>
+  <select></select>
+
+<form id="dimensions">
+  <input  type='radio' id="income" name="mode" checked>Income</input>
+  <input type='radio' id="population" name="mode">Population</input>
+	<input type='radio' id="lifeExpectancy" name="mode">Life Expectancy</input>
+</form>
+  <script>
+
+// To-dos:
+// Add second country
+// Get rid of the commas on the X-axis labels
+
+var margin = {top: 20, right: 30, bottom: 60, left: 20};
+    // I added 50 to the bottom margin to make room for the dropdown and the radio buttons at the top
+    // I added 40 to the left margin to make room for the y-axis tick marks to show
+    // I added 20 to the right margin to make the chart fit within view
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+		.append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var  g = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var line = d3.line()
+	.x(function(d){return x(d[0])})
+	.y(function(d){return y(d[1])})
+
+function filterJSON(json, location, dim){
+	    var result = [];
+  json.forEach( function(val, idx, arr){
+    if(val.name == location){
+      result.push(val[dim])}
+  })
+	return result[0];
+}
+
+var x = d3.scaleLinear()
+    	.range([0,width])
+var y = d3.scaleLinear()
+    	.range([height,0])
+
+var data;
+
+var yearStyle = {
+    "decimal": ".",
+        "thousands": "",
+        "grouping": [3],
+        "currency": ["$", ""]
+}
+
+// Here I tried to create a custom locale format to get rid of the commas in the years, but it did not work
+//var yearStyle = d3.formatLocale(yearStyle);
+
+function drawGraph(data, dim){
+  x.domain(d3.extent(data, function(d){return d[0]}))
+  y.domain(d3.extent(data, function(d){return d[1]}))
+  //appends x axis
+  g.append("g")
+    .attr("id", "xaxis")
+  	.attr("transform", "translate(0," + height + ")")
+  	.call(d3.axisBottom(x)
+         //.tickFormat(yearStyle) // This replaces the years with [object Object], instead of showing the years without the commas, like I wanted
+          )
+  	.append("text")
+    .attr("fill", "#000")
+  	.text("Year")
+    .attr("transform", "translate(" + [width - margin.right, 0 - margin.bottom/2 + 25] + ")")
+  // appends y axis
+  g.append("g")
+    	.attr("id", "yaxis")
+  	.call(d3.axisLeft(y))
+  		.append("text")
+      .attr("fill", "#000")
+      .attr("transform", "rotate(-90)")
+      .attr("transform", "translate(" + [margin.left * 0.5, margin.top] + ") rotate(" + -90 + ")")
+      .attr("text-anchor", "end")
+      .text(dim);
+  // appends line
+	g.append("path")
+  	.datum(data)
+    .attr("fill", "none")
+  	.attr("class","line")
+    .attr("stroke", "green")
+    .attr("stroke-width", 1)
+  	.attr("d", line);
+}
+
+d3.json("nations.json", function(error,json){
+  if (error) throw error;
+
+  function changeIt(){
+    //get rid of everything and re-draw
+    	d3.selectAll(".line").remove()
+      d3.selectAll("#yaxis").remove()
+      d3.selectAll("#xaxis").remove()
+    //get the value from the dropdown
+  		var sect = document.getElementById("ddSel");
+      var country = sect.options[sect.selectedIndex].value;
+      var form = document.getElementById("dimensions");
+      var form_val;
+    	for(var i=0; i<form.length; i++){
+        if(form[i].checked){
+          form_val = form[i].id;}}
+      data = filterJSON(json, country, form_val)
+      drawGraph(data, form_val)
+            }
+  var dropdown = d3.select("select")
+  	.attr("id", "ddSel");
+
+  var options = dropdown.selectAll("option")
+  	.data(json)
+
+  options.enter()
+    .append("option")
+    .text(function(d){return d.name})
+		dropdown.on("change",changeIt)
+
+	var dataDim = d3.select("#dimensions")
+	dataDim.on("change", changeIt)
+
+  data = filterJSON(json, "Angola", "income")
+  console.log(line(data))
+  drawGraph(data, "income")
+
+});
+
+  </script>
+</body>
