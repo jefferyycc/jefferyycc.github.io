@@ -1,5 +1,5 @@
 var width = 800;
-var height = 600;
+var height = 500;
 var range = 100;
 var cntPoints = 50;
 var padding = {
