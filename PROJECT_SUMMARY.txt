@@ -1,0 +1,56 @@
+JEFFERY YU PORTFOLIO - CURRENT SUMMARY
+=====================================
+
+PURPOSE
+-------
+Personal portfolio site for Jeffery Yu.
+
+Primary positioning:
+- Senior Backend / Platform Engineer
+
+Secondary positioning:
+- Applied AI / AI Systems
+
+CURRENT STACK
+-------------
+- Next.js 16
+- TypeScript
+- Tailwind CSS
+- Framer Motion
+- next/font (Inter + Lora, self-hosted through the build)
+- Static export for GitHub Pages
+
+CURRENT SITE SECTIONS
+---------------------
+1. Navbar
+2. Hero
+3. About
+4. Selected Work
+5. Experience
+6. Education
+7. Let's connect
+
+CURRENT CONTENT COUNTS
+----------------------
+- 3 projects
+- 4 experience entries
+- 2 education entries
+- 2 about paragraphs
+
+KEY FILES
+---------
+- app/layout.tsx        - metadata and font setup
+- app/page.tsx          - main page composition
+- app/globals.css       - global styles
+- components/Hero.tsx   - hero section
+- components/Projects.tsx
+- components/Experience.tsx
+- components/Footer.tsx
+- lib/data.ts           - centralized portfolio content
+
+NOTES
+-----
+- The site is exported statically with Next.js.
+- Fonts are loaded through next/font instead of runtime Google Fonts imports.
+- The hero image is a public JPG asset and should stay compressed because it is a large above-the-fold asset.
+- The d3/ and d3-lab-exercise/ folders are legacy/archive materials and not part of the main portfolio narrative.
