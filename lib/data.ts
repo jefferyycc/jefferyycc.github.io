@@ -59,7 +59,7 @@ export const experience = [
     id: 1,
     company: 'Oracle',
     role: 'Senior Software Engineer, Analytics Cloud',
-    dates: 'Apr 2025 – Present',
+    dates: 'Apr 2025 – Jun 2026',
     summary:
       'Backend APIs, internal DevOps tooling, and workflow orchestration for Oracle Analytics Cloud.',
     highlights: [
